@@ -56,7 +56,7 @@ session_start(); // Inicia a sessão
                         </a>
                         <div class="dropdown" id="localDropdown">
                             <ul>
-                                <li><a href="#"><i class="fa fa-plus"></i>Novo local</a></li>
+                                <li><a href="#" onclick="abrirModal('modalLocal')"><i class="fa fa-plus"></i>Novo local</a></li>
                                 <li><a href="#"><i class="fa fa-edit"></i>Editar local</a></li>
                             </ul>
                         </div>
@@ -70,9 +70,9 @@ session_start(); // Inicia a sessão
                         </a>
                         <div class="dropdown" id="cemigDropdown">
                             <ul>
+                                <li><a href="#" onclick="abrirModal('modalCemig')"><i class="fa fa-line-chart"></i> <span>Nova fatura</span></a></li>
                                 <li><a href="#"><i class="fa fa-plus"></i>Cadastrar</a></li>
                                 <li><a href="#"><i class="fa fa-edit"></i>Editar</a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>Gráfico de consumo</span></a></li>
                             </ul>
                         </div>
                     </li>
@@ -85,9 +85,9 @@ session_start(); // Inicia a sessão
                         </a>
                         <div class="dropdown" id="copasaDropdown">
                             <ul>
+                                <li><a href="#" onclick="abrirModal('modalCopasa')"><i class="fa fa-line-chart"></i> <span>Nova fatura</span></a></li>
                                 <li><a href="#"><i class="fa fa-plus"></i>Cadastrar</a></li>
                                 <li><a href="#"><i class="fa fa-edit"></i>Editar</a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>Gráfico de consumo</span></a></li>
                             </ul>
                         </div>
                     </li>
@@ -100,9 +100,9 @@ session_start(); // Inicia a sessão
                         </a>
                         <div class="dropdown" id="impressoraDropdown">
                             <ul>
+                                <li><a href="#" onclick="abrirModal('modalImpressora')"><i class="fa fa-line-chart"></i> <span>Nova fatura</span></a></li>
                                 <li><a href="#"><i class="fa fa-plus"></i>Cadastrar</a></li>
                                 <li><a href="#"><i class="fa fa-edit"></i>Editar</a></li>
-                                <li><a href="#"><i class="fa fa-line-chart"></i> <span>Gráfico de consumo</span></a></li>
                             </ul>
                         </div>
                     </li>
@@ -115,7 +115,6 @@ session_start(); // Inicia a sessão
                         </a>
                         <div class="dropdown" id="usuariosDropdown">
                             <ul>
-                                <li><a href="#"><i class="fa fa-user-circle"></i>Minha conta</a></li>
                                 <li><a href="#"><i class="fa fa-plus"></i>Cadastrar</a></li>
                                 <li><a href="#"><i class="fa fa-users"></i>Usuários</a></li>
                             </ul>
@@ -140,68 +139,294 @@ session_start(); // Inicia a sessão
 
                 </ul>
             </div>
-            <div class="usuario-container">
-                <div class="usuario-logado">
-                    <p><?= $_SESSION['nome'] . ' ' . $_SESSION['sobrenome'] ?></p>
-                    <img src="/Contas/Image/logo.png" alt="">
+
+
+            <!-- formulários de cadastro do local -->
+            <div class="div-formulario-cadastro" style="display: none;" id="modalLocal">
+                <div class="botao-fechar-modal">
+                    <button onclick="abrirModal('modalLocal')"><i class="fa fa-close"></i></button>
                 </div>
-            </div>
+                <form action="" class="formulario-cadastro">
+                    <div class="titulo">
+                        <h2>Novo Local</h2>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-nome-local">
+                            <input type="text" name="input-nome-local" placeholder="Nome do local" required>
+                        </div>
 
-            <!-- Formulario de cadastro de Local 
-        <div class="modal" id="modalFormularioLocal">
-
-            <div class="div-formulario-local">
-                <form id="form-cadastro">
-                    <h2>Cadastro de Novo Local</h2>
-                    <div class="input-nome-local">
-                        <input type="text" name="nome-local" placeholder="Nome do local">
+                        <div class="input-cep-local">
+                            <input type="text" name="input-cep-local" placeholder="CEP" id="cep" maxlength="8" required oninput="consultarCEP()">
+                        </div>
                     </div>
 
-                    <div class="input-cep">
-                        <input type="text" id="cep" name="cep" maxlength="8" placeholder="Digite o CEP" required oninput="consultarCEP()">
+                    <div class="input-group">
+                        <div class="input-rua-local">
+                            <input type="text" name="input-rua-local" placeholder="Rua" id="logradouro" disabled>
+                        </div>
+
+                        <div class="input-bairro-local">
+                            <input type="text" name="input-bairro-local" placeholder="Bairro" id="bairro" disabled>
+                        </div>
                     </div>
 
-                    <div class="input-logradouro">
-                        <input type="text" id="logradouro" name="logradouro" placeholder="Logradouro" required readonly>
+                    <div class="input-group">
+                        <div class="input-numero-local">
+                            <input type="text" name="input-numero-local" placeholder="Nº" required>
+                        </div>
+
+                        <div class="input-complemento-local">
+                            <input type="text" name="input-complemento-local" placeholder="Complemento">
+                        </div>
                     </div>
 
-                    <div class="input-bairro">
-                        <input type="text" id="bairro" name="bairro" placeholder="Bairro" required readonly>
+                    <div class="input-group">
+                        <div class="input-referencia-local">
+                            <input type="text" name="input-referencia-local" placeholder="Ponto de referência" required>
+                        </div>
+
+                        <div class="input-situacao-local">
+                            <select name="input-situacao-local" required>
+                                <option value="Default" selected disabled>Selecione a situação</option>
+                                <option value="Proprio">Proprio</option>
+                                <option value="Alugado">Alugado</option>
+                                <option value="Cedido">Cedido</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <div class="input-num-local">
-                        <input type="text" name="num-local" placeholder="Nº da residência" required>
+                    <div class="input-group">
+                        <div class="input-vigencia-local">
+                            <label for="vigencia">Data inicial</label>
+                            <input type="date" name="input-vigencia-inicial">
+                        </div>
+                        <div class="input-vigencia-local">
+                            <label for="vigencia">Data final</label>
+                            <input type="date" name="input-vigencia-final">
+                        </div>
                     </div>
 
-                    <div class="input-complemento">
-                        <input type="text" name="complemento" placeholder="Complemento">
-                    </div>
-
-                    <div class="input-referencia">
-                        <input type="text" name="referencia" placeholder="Ponto de referência">
-                    </div>
-
-                    <div class="input-situacao">
-                        <select name="situacao">
-                            <option value="0" selected disabled>Selecione a situação do imóvel</option>
-                            <option value="Proprio">Proprio</option>
-                            <option value="Alugado">Alugado</option>
-                            <option value="Cedido">Cedido</option>
-                        </select>
-                    </div>
-
-                    <div class="vigencia-inicial">
-                        <input type="date" name="vigencia-inicial">
-                    </div>
-
-                    <div class="vigencia-final">
-                        <input type="date" name="vigencia-final">
+                    <div class="button-enviar">
+                        <button>CRIAR</button>
                     </div>
                 </form>
             </div>
-        </div>
 
--->
+            <!-- Formulário de cadastro de nova fatura - CEMIG -->
+            <div class="div-formulario-cadastro" style="display: none;" id="modalCemig">
+                <div class="botao-fechar-modal">
+                    <button onclick="abrirModal('modalCopasa')"><i class="fa fa-close"></i></button>
+                </div>
+                <form action="" class="formulario-cadastro">
+                    <div class="titulo">
+                        <h2>Nova Fatura - Cemig</h2>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-nome-local">
+                            <input type="text" name="input-nome-local" placeholder="Nome do local" required>
+                        </div>
+
+                        <div class="input-cep-local">
+                            <input type="text" name="input-cep-local" placeholder="CEP" id="cep" maxlength="8" required oninput="consultarCEP()">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-rua-local">
+                            <input type="text" name="input-rua-local" placeholder="Rua" id="logradouro" disabled>
+                        </div>
+
+                        <div class="input-bairro-local">
+                            <input type="text" name="input-bairro-local" placeholder="Bairro" id="bairro" disabled>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-numero-local">
+                            <input type="text" name="input-numero-local" placeholder="Nº" required>
+                        </div>
+
+                        <div class="input-complemento-local">
+                            <input type="text" name="input-complemento-local" placeholder="Complemento">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-referencia-local">
+                            <input type="text" name="input-referencia-local" placeholder="Ponto de referência" required>
+                        </div>
+
+                        <div class="input-situacao-local">
+                            <select name="input-situacao-local" required>
+                                <option value="Default" selected disabled>Selecione a situação</option>
+                                <option value="Proprio">Proprio</option>
+                                <option value="Alugado">Alugado</option>
+                                <option value="Cedido">Cedido</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-vigencia-local">
+                            <label for="vigencia">Data inicial</label>
+                            <input type="date" name="input-vigencia-inicial">
+                        </div>
+                        <div class="input-vigencia-local">
+                            <label for="vigencia">Data final</label>
+                            <input type="date" name="input-vigencia-final">
+                        </div>
+                    </div>
+
+                    <div class="button-enviar">
+                        <button>CRIAR</button>
+                    </div>
+                </form>
+            </div>
+
+
+            <!-- Formulário de cadastro de nova fatura - COPASA -->
+            <div class="div-formulario-cadastro" style="display: none;" id="modalCopasa">
+                <div class="botao-fechar-modal">
+                    <button onclick="abrirModal('modalCopasa')"><i class="fa fa-close"></i></button>
+                </div>
+                <form action="" class="formulario-cadastro">
+                    <div class="titulo">
+                        <h2>Nova Fatura - Copasa</h2>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-nome-local">
+                            <input type="text" name="input-nome-local" placeholder="Nome do local" required>
+                        </div>
+
+                        <div class="input-cep-local">
+                            <input type="text" name="input-cep-local" placeholder="CEP" id="cep" maxlength="8" required oninput="consultarCEP()">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-rua-local">
+                            <input type="text" name="input-rua-local" placeholder="Rua" id="logradouro" disabled>
+                        </div>
+
+                        <div class="input-bairro-local">
+                            <input type="text" name="input-bairro-local" placeholder="Bairro" id="bairro" disabled>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-numero-local">
+                            <input type="text" name="input-numero-local" placeholder="Nº" required>
+                        </div>
+
+                        <div class="input-complemento-local">
+                            <input type="text" name="input-complemento-local" placeholder="Complemento">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-referencia-local">
+                            <input type="text" name="input-referencia-local" placeholder="Ponto de referência" required>
+                        </div>
+
+                        <div class="input-situacao-local">
+                            <select name="input-situacao-local" required>
+                                <option value="Default" selected disabled>Selecione a situação</option>
+                                <option value="Proprio">Proprio</option>
+                                <option value="Alugado">Alugado</option>
+                                <option value="Cedido">Cedido</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-vigencia-local">
+                            <label for="vigencia">Data inicial</label>
+                            <input type="date" name="input-vigencia-inicial">
+                        </div>
+                        <div class="input-vigencia-local">
+                            <label for="vigencia">Data final</label>
+                            <input type="date" name="input-vigencia-final">
+                        </div>
+                    </div>
+
+                    <div class="button-enviar">
+                        <button>CRIAR</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Formulário de cadastro de nova fatura - IMPRESSORA  -->
+            <div class="div-formulario-cadastro" style="display: none;" id="modalImpressora">
+                <div class="botao-fechar-modal">
+                    <button onclick="abrirModal('modalImpressora')"><i class="fa fa-close"></i></button>
+                </div>
+                <form action="" class="formulario-cadastro">
+                    <div class="titulo">
+                        <h2>Nova Fatura - Impressora</h2>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-nome-local">
+                            <input type="text" name="input-nome-local" placeholder="Nome do local" required>
+                        </div>
+
+                        <div class="input-cep-local">
+                            <input type="text" name="input-cep-local" placeholder="CEP" id="cep" maxlength="8" required oninput="consultarCEP()">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-rua-local">
+                            <input type="text" name="input-rua-local" placeholder="Rua" id="logradouro" disabled>
+                        </div>
+
+                        <div class="input-bairro-local">
+                            <input type="text" name="input-bairro-local" placeholder="Bairro" id="bairro" disabled>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-numero-local">
+                            <input type="text" name="input-numero-local" placeholder="Nº" required>
+                        </div>
+
+                        <div class="input-complemento-local">
+                            <input type="text" name="input-complemento-local" placeholder="Complemento">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-referencia-local">
+                            <input type="text" name="input-referencia-local" placeholder="Ponto de referência" required>
+                        </div>
+
+                        <div class="input-situacao-local">
+                            <select name="input-situacao-local" required>
+                                <option value="Default" selected disabled>Selecione a situação</option>
+                                <option value="Proprio">Proprio</option>
+                                <option value="Alugado">Alugado</option>
+                                <option value="Cedido">Cedido</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-vigencia-local">
+                            <label for="vigencia">Data inicial</label>
+                            <input type="date" name="input-vigencia-inicial">
+                        </div>
+                        <div class="input-vigencia-local">
+                            <label for="vigencia">Data final</label>
+                            <input type="date" name="input-vigencia-final">
+                        </div>
+                    </div>
+
+                    <div class="button-enviar">
+                        <button>CRIAR</button>
+                    </div>
+                </form>
+            </div>
+
+
         </div>
     <?php
     }

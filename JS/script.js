@@ -1,13 +1,3 @@
-// abre e fecha as opções do dropdown
-function toggleDropdown(id) {
-    var dropdown = document.getElementById(id);
-
-    if (dropdown.style.display === 'block') {
-        dropdown.style.display = 'none';
-    } else {
-        dropdown.style.display = 'block';
-    }
-}
 
  // circulo para carregar página
  function carregar() {
@@ -56,4 +46,43 @@ function preencherCampos(data) {
     document.getElementById('logradouro').value = data.logradouro;
     document.getElementById('bairro').value = data.bairro;
     // Outros campos podem ser preenchidos da mesma maneira
+}
+
+// abrir modal de cadastro
+function abrirModal(modal){
+    var open = document.getElementById(modal);
+
+    open.style.display === 'none' ? fadeIn(open) : fadeOut(open);
+    
+}
+
+// animação de aparecer
+function fadeIn(element) {
+    element.style.display = 'flex';
+    element.style.opacity = 0;
+
+    let opacity = 0;
+    const fadeInInterval = setInterval(function() {
+        if (opacity < 1) {
+            opacity += 0.1;
+            element.style.opacity = opacity;
+        } else {
+            clearInterval(fadeInInterval);
+        }
+    }, 50);
+}
+
+// animação desaparecer
+function fadeOut(element) {
+    let opacity = 1;
+    const fadeOutInterval = setInterval(function() {
+        if (opacity > 0) {
+            opacity -= 0.1;
+            element.style.opacity = opacity;
+            
+        } else {
+            element.style.display = 'none';
+            clearInterval(fadeOutInterval);
+        }
+    }, 50);
 }

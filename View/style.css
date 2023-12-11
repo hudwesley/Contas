@@ -16,6 +16,7 @@ body {
 /* Scrollbar styling */
 ::-webkit-scrollbar {
     width: 1px;
+    height: 5px;
     background-color: #007BFF;
 }
 
@@ -27,6 +28,7 @@ body {
 .container {
     height: 100vh;
     width: 100vw;
+    display: flex;
 }
 
 .sidebar {
@@ -46,7 +48,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: #ffd700;
     font-weight: bold;
     padding: 5px;
     background-color: #2c3755;
@@ -66,7 +68,7 @@ body {
 
 .menu-list a {
     text-decoration: none;
-    color: #fff;
+    color: #ffd700;
     padding: 15px;
     font-size: 12px;
     font-weight: bold;
@@ -76,13 +78,12 @@ body {
 
 .menu-list a:hover {
     transform: scale(1.02);
-    color: #30dc78;
+    color: #ffd700;
     background-color: #2c3755;
 }
 
 /* Dropdown styling */
 .dropdown {
-    display: none;
     max-height: 200px;
     opacity: 1; 
 }
@@ -109,9 +110,9 @@ body {
 .dropdown ul li:last-child a:hover,
 .dropdown ul li a:hover i,
 .dropdown ul li:last-child a:hover i {
-    color: #30dc78;
-    transform: scale(1);
-    background: none;
+    transform: scale(1.02);
+    color: #ffd700;
+    background-color: #2c3755;
 }
 
 .menu-list a i,
@@ -156,8 +157,8 @@ body {
     height: auto;
 }
 
-/* Login form styling */
-.div-formulario-login, .div-formulario-local {
+/* FORMULARIO DE LOGIN */
+ .div-formulario-login, .div-formulario-local {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -272,3 +273,145 @@ input:-webkit-autofill {
     background-color: #007BFF;
 }
 
+
+
+/* FORMULARIO DE CADASTRO */
+
+.div-formulario-cadastro{
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+    width: 600px;
+    height: 450px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+}
+
+.formulario-cadastro{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+.titulo{
+    color: #007BFF;
+}
+
+.input-group{
+    width: 100%;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.input-group input{
+    outline: 0;
+    width: 250px;
+    margin: 5px 10px;
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 3px; 
+    font-weight: bold;
+}
+
+.input-group input:focus, .input-group select:focus{
+    border: 1px solid #ffd700;
+    box-shadow:  0 0 4px #ffd700;
+}
+
+.input-group select{
+    outline: 0;
+    width: 270px;
+    margin: 5px 10px;
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 3px; 
+    font-weight: bold;
+}
+
+.input-group select option{
+    font-weight: bold;
+}
+
+.input-vigencia-local{
+    display: flex;
+    flex-direction: column;;
+}
+
+.input-vigencia-local label{
+    margin-left: 10px;
+    color: #333;
+    font-weight: bold;
+}
+
+.button-enviar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.button-enviar button{
+    padding: 8px;
+    width: 150px;
+    background-color: #ffd700;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.button-enviar button:hover{
+    background-color: #ffe139;
+    transition: 0.3s;
+    transform: scale(1.03);
+}
+
+.botao-fechar-modal button{
+    border-radius: 55px;
+    border: none;
+    padding: 7px 10px;
+    color: #fff;
+    font-weight: bold;
+    background-color: #c80505;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.botao-fechar-modal button:hover{
+    background-color: #e63636;
+    transition: 0.3s;
+    transform: scale(1.03);
+}
+
+
+
+/* GRÁFICO DE CONSUMO */
+
+.div-graficos-consumo{
+    width: 80vw;
+    margin: 5vh 0 0 18vw;
+}
+
+.grafico{
+    width: 90%;
+    height: 33%;
+    margin: 10px 5px;
+    font-size: 12px;
+    background: #eee;
+    color: #1b2541;
+    font-weight: bold;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border: 2px solid #fff;
+}
+
+.grafico:hover{
+    border: 2px solid #ffd700;
+}
