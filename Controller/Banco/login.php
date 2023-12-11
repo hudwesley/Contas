@@ -4,7 +4,6 @@ require_once("/xampp/htdocs/Contas/Controller/Connection/Conexao.php");
 session_start(); // Inicia a sessão
 
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 

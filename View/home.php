@@ -26,7 +26,7 @@ session_start(); // Inicia a sessão
 
     <?php
 
-    if (!isset($_SESSION['idUsuario'])) {
+    if (!isset($_SESSION['id'])) {
     ?>
         <script>
             alert("Faça login primeiro");
@@ -139,6 +139,12 @@ session_start(); // Inicia a sessão
                     </li>
 
                 </ul>
+            </div>
+            <div class="usuario-container">
+                <div class="usuario-logado">
+                    <p><?= $_SESSION['nome'] . ' ' . $_SESSION['sobrenome'] ?></p>
+                    <img src="/Contas/Image/logo.png" alt="">
+                </div>
             </div>
 
             <!-- Formulario de cadastro de Local 

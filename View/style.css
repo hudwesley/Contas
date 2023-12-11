@@ -126,6 +126,36 @@ body {
     background-color: #2c3755;
 }
 
+.usuario-logado {
+    color: #333;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    text-align: center;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.usuario-container {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 2; /* Para garantir que fique acima do conteúdo principal */
+}
+
+
+
+.usuario-logado p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.usuario-logado img {
+    width: 35px;
+    height: auto;
+}
+
 /* Login form styling */
 .div-formulario-login, .div-formulario-local {
     position: absolute;
@@ -241,3 +271,4 @@ input:-webkit-autofill {
     transform: scale(1.03);
     background-color: #007BFF;
 }
+
