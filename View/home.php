@@ -115,7 +115,7 @@ session_start(); // Inicia a sessão
                         </a>
                         <div class="dropdown" id="usuariosDropdown">
                             <ul>
-                                <li><a href="#"><i class="fa fa-plus"></i>Cadastrar</a></li>
+                                <li><a href="#" onclick="abrirModal('modalUsuario')"><i class="fa fa-plus"></i>Cadastrar</a></li>
                                 <li><a href="#"><i class="fa fa-users"></i>Usuários</a></li>
                             </ul>
                         </div>
@@ -215,7 +215,7 @@ session_start(); // Inicia a sessão
             <!-- Formulário de cadastro de nova fatura - CEMIG -->
             <div class="div-formulario-cadastro" style="display: none;" id="modalCemig">
                 <div class="botao-fechar-modal">
-                    <button onclick="abrirModal('modalCopasa')"><i class="fa fa-close"></i></button>
+                    <button onclick="abrirModal('modalCemig')"><i class="fa fa-close"></i></button>
                 </div>
                 <form action="" class="formulario-cadastro">
                     <div class="titulo">
@@ -426,6 +426,40 @@ session_start(); // Inicia a sessão
                 </form>
             </div>
 
+             <!-- Formulário de cadastro de nova fatura - IMPRESSORA  -->
+             <div class="div-formulario-cadastro" style="display: none;" id="modalUsuario">
+                <div class="botao-fechar-modal">
+                    <button onclick="abrirModal('modalUsuario')"><i class="fa fa-close"></i></button>
+                </div>
+                <form action="/Contas/Controller/Banco/UsuarioController.php" method="POST" class="formulario-cadastro">
+                    <div class="titulo">
+                        <h2>Novo Usuário</h2>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-nome-usuario">
+                            <input type="text" name="input-nome-usuario" placeholder="Nome" required>
+                        </div>
+
+                        <div class="input-cep-local">
+                            <input type="text" name="input-sobrenome-usuario" placeholder="Sobrenome" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-rua-local">
+                            <input type="text" name="input-username-usuario" placeholder="User" required>
+                        </div>
+
+                        <div class="input-bairro-local">
+                            <input type="text" name="input-password-usuario" placeholder="Password"  required>
+                        </div>
+                    </div>
+
+                    <div class="button-enviar">
+                        <button>CRIAR</button>
+                    </div>
+                </form>
+            </div>
 
         </div>
     <?php
