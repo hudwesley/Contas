@@ -11,8 +11,7 @@ class UsuarioModel
     public $password;
 
     
-    public function __construct($nome, $sobrenome, $user, $password)
-    {
+    public function __construct($nome, $sobrenome, $user, $password){
         $this->nome = $nome;
         $this->sobrenome = $sobrenome;
         $this->user = $user;
@@ -21,47 +20,21 @@ class UsuarioModel
 
     // getter e setter
 
-    public function getNome()
-    {
-        return $this->nome;
-    }
+    public function getNome(){ return $this->nome; }
 
-    public function setNome($nome)
-    {
-        $this->nome = $nome;
-    }
+    public function setNome($nome){ $this->nome = $nome; }
 
-    public function getSobrenome()
-    {
-        return $this->sobrenome;
-    }
+    public function getSobrenome(){ return $this->sobrenome; }
 
-    public function setSobrenome($sobrenome)
-    {
-        $this->sobrenome = $sobrenome;
-    }
+    public function setSobrenome($sobrenome){ $this->sobrenome = $sobrenome; }
 
-    public function getUser()
-    {
-        return $this->user;
-    }
+    public function getUser(){ return $this->user; }
 
-    public function setUser($user)
-    {
-        $this->user = $user;
-    }
+    public function setUser($user){ $this->user = $user; }
 
-    public function getPassword()
-    {
-        return $this->password;
-    }
+    public function getPassword(){ return $this->password; }
 
-    public function setPassword($password)
-    {
-        $this->password = $password;
-    }
-
-    // toString
+    public function setPassword($password){ $this->password = $password; }
 
     // inserir um novo usuário no banco de dados
     public function insertUser($conn, $nome, $sobrenome, $user, $password)
@@ -70,24 +43,18 @@ class UsuarioModel
             $stmt = $conn->prepare("INSERT INTO Usuario (Nome, Sobrenome, User, Password) VALUES (?,?,?,?)");
             $stmt->bind_param("ssss", $nome, $sobrenome, $user, $password);
             $stmt->execute();
+            
+            $_SESSION['success'] = true; // modal de sucesso
+            header("location: /Contas/View/home.php"); // redireciona para a página inicial
 
-            ?>
-                <script>
-                    alert("Usuário cadastrado com sucesso!");
-                    window.location = "/Contas/View/home.php";
-                </script>
-            <?php
         } catch (Exception $ex) {
             echo $ex;
         }
     }
-
-    // selecionar todos os usuários
     public function selectAllUsers($conn)
     {
         try {
             $stmt = $conn->prepare("SELECT * FROM Usuario");
-
             $stmt->execute();
 
             foreach ($stmt as $row) {
