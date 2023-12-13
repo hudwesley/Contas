@@ -82,6 +82,13 @@ body {
     background-color: #2c3755;
 }
 
+.sidebar li:last-child a:hover,
+.sidebar li:last-child a:hover i {
+    transform: scale(1);
+    color: #ff1e00;
+    background-color: #2c3755;
+}
+
 /* Dropdown styling */
 .dropdown {
     display: none;
@@ -111,7 +118,7 @@ body {
 .dropdown ul li:last-child a:hover,
 .dropdown ul li a:hover i,
 .dropdown ul li:last-child a:hover i {
-    transform: scale(1.02);
+    transform: scale(1);
     color: #ffd700;
     background-color: #1b2541;
 }
@@ -121,12 +128,7 @@ body {
     margin-right: 10px;
 }
 
-.sidebar li:last-child a:hover,
-.sidebar li:last-child a:hover i {
-    transform: scale(1);
-    color: #ff1e00;
-    background-color: #2c3755;
-}
+
 
 .usuario-logado {
     color: #333;

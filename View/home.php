@@ -71,7 +71,7 @@ session_start(); // Inicia a sessão
                         <div class="dropdown" id="cemigDropdown">
                             <ul>
                                 <li><a href="#" onclick="abrirModal('modalCemig')"><i class="fa fa-line-chart"></i> <span>Nova fatura</span></a></li>
-                                <li><a href="#"><i class="fa fa-plus"></i>Cadastrar</a></li>
+                                <li><a href="#"><i class="fa fa-plus"></i>Novo ponto</a></li>
                                 <li><a href="#"><i class="fa fa-edit"></i>Editar</a></li>
                             </ul>
                         </div>
@@ -86,7 +86,7 @@ session_start(); // Inicia a sessão
                         <div class="dropdown" id="copasaDropdown">
                             <ul>
                                 <li><a href="#" onclick="abrirModal('modalCopasa')"><i class="fa fa-line-chart"></i> <span>Nova fatura</span></a></li>
-                                <li><a href="#"><i class="fa fa-plus"></i>Cadastrar</a></li>
+                                <li><a href="#"><i class="fa fa-plus"></i>Novo ponto</a></li>
                                 <li><a href="#"><i class="fa fa-edit"></i>Editar</a></li>
                             </ul>
                         </div>
@@ -101,7 +101,7 @@ session_start(); // Inicia a sessão
                         <div class="dropdown" id="impressoraDropdown">
                             <ul>
                                 <li><a href="#" onclick="abrirModal('modalImpressora')"><i class="fa fa-line-chart"></i> <span>Nova fatura</span></a></li>
-                                <li><a href="#"><i class="fa fa-plus"></i>Cadastrar</a></li>
+                                <li><a href="#"><i class="fa fa-plus"></i>Novo ponto</a></li>
                                 <li><a href="#"><i class="fa fa-edit"></i>Editar</a></li>
                             </ul>
                         </div>
@@ -146,7 +146,7 @@ session_start(); // Inicia a sessão
                 <div class="botao-fechar-modal">
                     <button onclick="abrirModal('modalLocal')"><i class="fa fa-close"></i></button>
                 </div>
-                <form action="" class="formulario-cadastro">
+                <form action="/Contas/Controller/Banco/LocalController.php" method="post" class="formulario-cadastro">
                     <div class="titulo">
                         <h2>Novo Local</h2>
                     </div>
@@ -156,7 +156,7 @@ session_start(); // Inicia a sessão
                         </div>
 
                         <div class="input-cep-local">
-                            <input type="text" name="input-cep-local" placeholder="CEP" id="cep" maxlength="8" required oninput="consultarCEP()">
+                            <input type="text" name="input-cep-local" placeholder="CEP" id="cep" maxlength="8" required onblur="pesquisacep(this.value);">
                         </div>
                     </div>
 
@@ -459,8 +459,7 @@ session_start(); // Inicia a sessão
                         <button>CRIAR</button>
                     </div>
                 </form>
-            </div>
-
+            </div>  
         </div>
     <?php
     }

@@ -30,27 +30,64 @@ function showPassword() {
     checkboxSenha.type = (checkboxSenha.type === 'password') ? 'text' : 'password';
 }
 
-function consultarCEP(){
-    document.getElementById('cep').addEventListener('input', function() {
-        var cep = this.value;
-
-        cep = cep.replace(/\D/g, '');
-
-        if (cep.length === 8) {
-            // Consultar a API do ViaCEP
-            fetch(`https://viacep.com.br/ws/${cep}/json/`)
-                .then(response => response.json())
-                .then(data => preencherCampos(data))
-                .catch(error => console.error('Erro ao consultar o CEP:', error));
-        }
-    });
+function limpa_formulário_cep() {
+    //Limpa valores do formulário de cep.
+    document.getElementById('logradouro').value=("");
+    document.getElementById('bairro').value=("");
 }
 
-function preencherCampos(data) {
-    document.getElementById('logradouro').value = data.logradouro;
-    document.getElementById('bairro').value = data.bairro;
-    // Outros campos podem ser preenchidos da mesma maneira
+function meu_callback(conteudo) {
+    if (!("erro" in conteudo)) {
+        //Atualiza os campos com os valores.
+        document.getElementById('logradouro').value=(conteudo.logradouro);
+        document.getElementById('bairro').value=(conteudo.bairro);
+    } //end if.
+    else {
+        //CEP não Encontrado.
+        limpa_formulário_cep();
+        alert("CEP não encontrado.");
+    }
 }
+
+function pesquisacep(valor) {
+
+//Nova variável "cep" somente com dígitos.
+var cep = valor.replace(/\D/g, '');
+
+//Verifica se campo cep possui valor informado.
+if (cep != "") {
+
+    //Expressão regular para validar o CEP.
+    var validacep = /^[0-9]{8}$/;
+
+    //Valida o formato do CEP.
+    if(validacep.test(cep)) {
+
+        //Preenche os campos com "..." enquanto consulta webservice.
+        document.getElementById('logradouro').value="...";
+        document.getElementById('bairro').value="...";
+        //Cria um elemento javascript.
+        var script = document.createElement('script');
+
+        //Sincroniza com o callback.
+        script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+
+        //Insere script no documento e carrega o conteúdo.
+        document.body.appendChild(script);
+
+    } //end if.
+    else {
+        //cep é inválido.
+        limpa_formulário_cep();
+        alert("Formato de CEP inválido.");
+    }
+} //end if.
+else {
+    //cep sem valor, limpa formulário.
+    limpa_formulário_cep();
+}
+};
+
 
 
 function fadeIn(element) {

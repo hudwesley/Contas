@@ -19,8 +19,9 @@
         public String $vigenciaFinal;
 
 
+        public function __construct(){}
         // Construtor da classe
-        public function __construct($nome, $cep, $rua, $bairro, $numero, $complemento, $pontoReferencia, $situacao, $instrumento, $vigenciaInicial, $vigenciaFinal)
+        public function __constructWithParameters($nome, $cep, $rua, $bairro, $numero, $complemento, $pontoReferencia, $situacao, $instrumento, $vigenciaInicial, $vigenciaFinal)
         {
             $this->nome = $nome;
             $this->cep = $cep;
@@ -87,7 +88,7 @@
             try{
 
                 $stmt = $conn->prepare("INSERT INTO Local (nome, cep, rua, bairro, numero, complemento, pontoReferencia, situacao, instrumento, vigenciaInicial, vigenciaFinal) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
-                $stmt->bind_param("sssssssssss", $nome, $cep, $rua, $bairro, $numero, $complemento, $pontoReferencia,$situacao, $instrumento, $vigenciaInicial, $vigenciaFinal);
+                $stmt->bind_param("sssssssssss", $nome, $cep, $rua, $bairro, $numero, $complemento, $pontoReferencia, $situacao, $instrumento, $vigenciaInicial, $vigenciaFinal);
                 $stmt->execute();
 
                 $_SESSION['successLocal'] = true; // modal de sucesso

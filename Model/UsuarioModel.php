@@ -11,13 +11,15 @@ class UsuarioModel
     public $password;
 
     
-    public function __construct($nome, $sobrenome, $user, $password){
+    public function __construct(){}
+
+    // Construtor com parâmetros
+    public function __constructWithParameters($nome, $sobrenome, $user, $password){
         $this->nome = $nome;
         $this->sobrenome = $sobrenome;
-        $this->user = $user;
+        $this->user = $user; 
         $this->password = $password;
     }
-
     // getter e setter
 
     public function getNome(){ return $this->nome; }
@@ -39,17 +41,15 @@ class UsuarioModel
     // inserir um novo usuário no banco de dados
     public function insertUser($conn, $nome, $sobrenome, $user, $password)
     {
-        try {
+        
             $stmt = $conn->prepare("INSERT INTO Usuario (Nome, Sobrenome, User, Password) VALUES (?,?,?,?)");
             $stmt->bind_param("ssss", $nome, $sobrenome, $user, $password);
-            $stmt->execute();
-            
-            $_SESSION['successConta'] = true; // modal de sucesso
-            header("location: /Contas/View/home.php"); // redireciona para a página inicial
-
-        } catch (Exception $ex) {
-            echo $ex;
-        }
+            if($stmt->execute()){
+                $_SESSION['successConta'] = true; // modal de sucesso
+                header("location: /Contas/View/home.php"); // redireciona para a página inicial
+            }else{
+                $_SESSION['errorConta'] = true;
+            }
     }
     public function selectAllUsers($conn)
     {
@@ -57,11 +57,14 @@ class UsuarioModel
             $stmt = $conn->prepare("SELECT * FROM Usuario");
             $stmt->execute();
 
-            foreach ($stmt as $row) {
-                echo $row['Nome'];
-                echo $row['Sobrenome'];
-                echo $row['Usuario'];
+            $result = $stmt->get_result();
+
+            $lista = array();
+            while($item = $result->fetch_assoc()){
+                $lista[] = $item;
             }
+            return $lista;
+
         } catch (Exception $ex) {
             echo $ex;
         }
@@ -98,9 +101,11 @@ class UsuarioModel
 
             $stmt->bind_param("ssss", $nome, $sobrenome, $user, $password);
 
-            $stmt->execute();
-        } catch (Exception $ex) {
-            echo $ex;
+            $stmt->execute() ? $_SESSION['successConta'] = true : $_SESSION['errorConta'] = true;
+            header("location: /Contas/View/home.php"); // redireciona para a página inicial
+
+        }catch(Exception $ex){
+            echo $ex->getMessage();
         }
     }
 
@@ -108,10 +113,11 @@ class UsuarioModel
     public function deleteUser($conn, $idUsuario){
         try{
             $stmt = $conn->prepare("DELETE FROM Usuario WHERE idUsuario = $idUsuario");
-            $stmt->execute();
+            $stmt->execute() ? $_SESSION['successConta'] = true : $_SESSION['errorConta'] = true;
+            header("location: /Contas/View/home.php"); // redireciona para a página inicial
 
         }catch(Exception $ex){
-            echo $ex;
+            echo $ex->getMessage();
         }
     }
 
