@@ -44,7 +44,7 @@ class UsuarioModel
             $stmt->bind_param("ssss", $nome, $sobrenome, $user, $password);
             $stmt->execute();
             
-            $_SESSION['success'] = true; // modal de sucesso
+            $_SESSION['successConta'] = true; // modal de sucesso
             header("location: /Contas/View/home.php"); // redireciona para a página inicial
 
         } catch (Exception $ex) {

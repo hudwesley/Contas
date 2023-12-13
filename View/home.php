@@ -186,7 +186,7 @@ session_start(); // Inicia a sessão
                         </div>
 
                         <div class="input-situacao-local">
-                            <select name="input-situacao-local" required>
+                            <select name="input-situacao-local" id="input-situacao-local" required onchange="toggleVigenciaInputs()">
                                 <option value="Default" selected disabled>Selecione a situação</option>
                                 <option value="Proprio">Proprio</option>
                                 <option value="Alugado">Alugado</option>
@@ -195,7 +195,7 @@ session_start(); // Inicia a sessão
                         </div>
                     </div>
 
-                    <div class="input-group">
+                    <div class="input-group" id="div-vigencia-inputs" style="display: none;">
                         <div class="input-vigencia-local">
                             <label for="vigencia">Data inicial</label>
                             <input type="date" name="input-vigencia-inicial">
@@ -426,8 +426,8 @@ session_start(); // Inicia a sessão
                 </form>
             </div>
 
-             <!-- Formulário de cadastro de nova fatura - IMPRESSORA  -->
-             <div class="div-formulario-cadastro" style="display: none;" id="modalUsuario">
+            <!-- Formulário de cadastro de nova fatura - IMPRESSORA  -->
+            <div class="div-formulario-cadastro" style="display: none;" id="modalUsuario">
                 <div class="botao-fechar-modal">
                     <button onclick="abrirModal('modalUsuario')"><i class="fa fa-close"></i></button>
                 </div>
@@ -451,7 +451,7 @@ session_start(); // Inicia a sessão
                         </div>
 
                         <div class="input-bairro-local">
-                            <input type="text" name="input-password-usuario" placeholder="Password"  required>
+                            <input type="text" name="input-password-usuario" placeholder="Password" required>
                         </div>
                     </div>
 

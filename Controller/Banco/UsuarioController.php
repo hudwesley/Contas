@@ -12,3 +12,4 @@ $newUser = new UsuarioModel($nome, $sobrenome, $user, $password);
 
 $newUser->insertUser($conn, $nome, $sobrenome, $user, $password);
 ?>
+''

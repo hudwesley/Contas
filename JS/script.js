@@ -27,22 +27,15 @@ function toggleDropdown(id) {
 // função para mostrar a senha
 function showPassword() {
     var checkboxSenha = document.getElementById('senha-login');
-
-
-    if (checkboxSenha.type === 'password') {
-        checkboxSenha.type = 'text';
-    } else {
-        checkboxSenha.type = 'password';
-    }
+    checkboxSenha.type = (checkboxSenha.type === 'password') ? 'text' : 'password';
 }
+
 function consultarCEP(){
     document.getElementById('cep').addEventListener('input', function() {
         var cep = this.value;
 
-        // Formatar o CEP removendo caracteres não numéricos
         cep = cep.replace(/\D/g, '');
 
-        // Verificar se o CEP possui 8 caracteres numéricos
         if (cep.length === 8) {
             // Consultar a API do ViaCEP
             fetch(`https://viacep.com.br/ws/${cep}/json/`)
@@ -59,6 +52,35 @@ function preencherCampos(data) {
     // Outros campos podem ser preenchidos da mesma maneira
 }
 
+
+function fadeIn(element) {
+    element.style.display = 'flex';
+    element.style.opacity = 0;
+
+    function fadeInStep() {
+        element.style.opacity = parseFloat(element.style.opacity) + 0.1;
+        if (parseFloat(element.style.opacity) < 1) {
+            requestAnimationFrame(fadeInStep);
+        }
+    }
+
+    requestAnimationFrame(fadeInStep);
+}
+
+function fadeOut(element) {
+    function fadeOutStep() {
+        element.style.opacity = parseFloat(element.style.opacity) - 0.1;
+        if (parseFloat(element.style.opacity) > 0) {
+            requestAnimationFrame(fadeOutStep);
+        } else {
+            element.style.display = 'none';
+        }
+    }
+
+    requestAnimationFrame(fadeOutStep);
+}
+
+
 // abrir modal de cadastro
 function abrirModal(modal){
     var open = document.getElementById(modal);
@@ -67,33 +89,14 @@ function abrirModal(modal){
     
 }
 
-// animação de aparecer
-function fadeIn(element) {
-    element.style.display = 'flex';
-    element.style.opacity = 0;
+function toggleVigenciaInputs() {
+    var situacaoSelect = document.getElementById('input-situacao-local');
+    var vigenciaDiv = document.getElementById('div-vigencia-inputs');
 
-    let opacity = 0;
-    const fadeInInterval = setInterval(function() {
-        if (opacity < 1) {
-            opacity += 0.1;
-            element.style.opacity = opacity;
-        } else {
-            clearInterval(fadeInInterval);
-        }
-    }, 50);
-}
-
-// animação desaparecer
-function fadeOut(element) {
-    let opacity = 1;
-    const fadeOutInterval = setInterval(function() {
-        if (opacity > 0) {
-            opacity -= 0.1;
-            element.style.opacity = opacity;
-            
-        } else {
-            element.style.display = 'none';
-            clearInterval(fadeOutInterval);
-        }
-    }, 50);
+    // Se a opção selecionada for 'Alugado' ou 'Cedido', mostra a div de vigência, caso contrário, esconde
+    if (situacaoSelect.value === 'Alugado' || situacaoSelect.value === 'Cedido') {
+        vigenciaDiv.style.display = 'flex';
+    } else {
+        vigenciaDiv.style.display = 'none';
+    }
 }

@@ -82,9 +82,20 @@
         public function setVigenciaFinal($vigenciaFinal){$this->vigenciaFinal = $vigenciaFinal;}
 
 
-        public function insertLocal($conn){
+        public function insertLocal($conn, $nome, $cep, $rua, $bairro, $numero, $complemento, $pontoReferencia,$situacao, $instrumento, $vigenciaInicial, $vigenciaFinal){
             // comando SQL
-            $stmt = "INSERT INTO Local (nome, cep, rua, bairro, numero, complemento, pontoReferencia, situacao, instrumento, vigenciaInicial, vigenciaFinal) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+            try{
+
+                $stmt = $conn->prepare("INSERT INTO Local (nome, cep, rua, bairro, numero, complemento, pontoReferencia, situacao, instrumento, vigenciaInicial, vigenciaFinal) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+                $stmt->bind_param("sssssssssss", $nome, $cep, $rua, $bairro, $numero, $complemento, $pontoReferencia,$situacao, $instrumento, $vigenciaInicial, $vigenciaFinal);
+                $stmt->execute();
+
+                $_SESSION['successLocal'] = true; // modal de sucesso
+                header("location: /Contas/View/home.php"); // redireciona para a página inicial
+
+            }catch(Exception $ex){
+                echo $ex;
+            }
 
 
         }
